@@ -127,16 +127,9 @@ const fetchResults = async () => {
                 },
             }
         );
-        console.log(res);
-        console.log(
-            JSON.stringify({
-                query: query.value,
-                page: currentPage.value,
-                per_page: itemsPerPage,
-            })
-        );
-
-        const data = await res.json();
+        console.log(res.data);
+        // 直接访问 res.data 获取解析后的数据
+        const data = res.data;
         console.log("实际数据:", data);
         results.value = data.results || [];
     } catch (err) {
