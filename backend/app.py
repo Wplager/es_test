@@ -60,6 +60,30 @@ def search():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+@app.route('/api/all', methods=['GET'])
+def get_all():
+    try:
+        res = es.search(
+            index="health",
+            body={
+                "query": {"match_all": {}},
+                "size": 1000
+            }
+        )
+        formatted_results = [
+            {
+                "id": hit["_id"],
+                "title": hit["_source"]["title"],
+                "author": hit["_source"]["author"],
+                "date": hit["_source"]["date"],
+                "snippet": " ".join(hit["_source"]["content"].split()[:30]) + "...",
+            }
+            for hit in res["hits"]["hits"]
+        ]
+        return jsonify({"results": formatted_results})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 @app.route('/api/document/<doc_id>', methods=['GET'])
 def get_document(doc_id):
     try:

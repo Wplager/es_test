@@ -4,7 +4,7 @@
     </header>
     <main class="container">
         <div class="results-header">
-            <h2 class="results-title">搜索结果</h2>
+            <h2 class="results-title">{{ query ? '搜索结果' : '所有记录' }}</h2>
             <div class="results-count">共 {{ results.length }} 条结果</div>
         </div>
 
@@ -110,28 +110,39 @@ function highlightMatches(text, term) {
 
 // 获取搜索结果
 const fetchResults = async () => {
-    if (!query.value) return;
-
     loading.value = true;
     try {
-        const res = await axios.post(
-            "/api/search",
-            {
-                query: query.value,
-                page: currentPage.value,
-                per_page: itemsPerPage,
-            },
-            {
-                headers: {
-                    "Content-Type": "application/json",
+        let res;
+        if (query.value) {
+            res = await axios.post(
+                "/api/search",
+                {
+                    query: query.value,
+                    page: currentPage.value,
+                    per_page: itemsPerPage,
                 },
-            }
-        );
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
+        } else {
+            res = await axios.get("/api/all");
+            res.data = { results: res.data.results };
+        }
         console.log(res.data);
         // 直接访问 res.data 获取解析后的数据
         const data = res.data;
         console.log("实际数据:", data);
-        results.value = data.results || [];
+        
+        if ((!data.results || data.results.length == 0)) {
+            // If search returned no results, try getting all records
+            const allRes = await axios.get("/api/all");
+            results.value = allRes.data.results || [];
+        } else {
+            results.value = data.results || [];
+        }
     } catch (err) {
         console.error("搜索失败:", err);
     } finally {
