@@ -1,7 +1,7 @@
 <template>
   <a href="#" class="logo" @click.prevent="$emit('go-home')">
-    <div class="logo-icon">S</div>
-    <span class="logo-text">SISU知识检索系统</span>
+    <div class="logo-icon">P</div>
+    <span class="logo-text">健康知识检索系统</span>
   </a>
 </template>
 

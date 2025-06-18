@@ -4,9 +4,9 @@
     </header>
     <main class="container">
         <div class="hero">
-            <h1 class="hero-title">探索SISU知识宝库</h1>
+            <h1 class="hero-title">探索健康知识宝库</h1>
             <p class="hero-subtitle">
-                快速检索四川外国语大学学术资源与知识库内容
+                快速检索健康知识库内容
             </p>
             <form @submit.prevent="search" class="search-form">
                 <input

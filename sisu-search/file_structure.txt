@@ -1,0 +1,28 @@
+当前目录结构（过滤隐藏文件）：/root/es_test/sisu-search
+├── public
+│   └── vite.svg
+├── src
+│   ├── router
+│   │   └── index.js
+│   ├── components
+│   │   ├── SearchForm.vue
+│   │   ├── DetailActions.vue
+│   │   ├── Header.vue
+│   │   ├── Footer.vue
+│   │   ├── Pagination.vue
+│   │   ├── Logo.vue
+│   │   └── ResultItem.vue
+│   ├── assets
+│   │   ├── global.css
+│   │   └── vue.svg
+│   ├── views
+│   │   ├── ResultsView.vue
+│   │   ├── HomeView.vue
+│   │   └── DetailView.vue
+│   ├── App.vue
+│   ├── main.js
+│   └── index.css
+├── package-lock.json
+├── package.json
+├── vite.config.js
+└── index.html
