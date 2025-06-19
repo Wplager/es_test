@@ -198,14 +198,11 @@ watch(
     () => route.query.page,
     (newPage) => {
         const pageNum = parseInt(newPage) || 1;
-        console.log('Route page changed from', currentPage.value, 'to', pageNum);
-        if (pageNum !== currentPage.value) {
-            currentPage.value = pageNum;
-            console.log('Fetching results for page', pageNum);
-            fetchResults();
-        } else {
-            console.log('Page number unchanged, skipping fetch');
-        }
+        console.log('Route page changed to:', pageNum);
+
+        // 即使页码相同，也执行 fetchResults()
+        currentPage.value = pageNum;
+        fetchResults(); // 不再判断是否变化
     },
     { immediate: true }
 );
