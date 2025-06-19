@@ -1,6 +1,6 @@
 <template>
   <a href="#" class="logo" @click.prevent="$emit('go-home')">
-    <div class="logo-icon">P</div>
+    <img src="/logo.png" alt="Logo" class="logo-icon">
     <span class="logo-text">健康知识检索系统</span>
   </a>
 </template>

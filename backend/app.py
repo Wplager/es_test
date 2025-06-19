@@ -32,14 +32,16 @@ def search():
         return jsonify({"error": "Missing query"}), 400
 
     try:
+        print(f"Searching for query: {query}, page: {page}, from: {(page - 1) * 20}")
         res = es.search(
             index="health",
             body={
                 "query": {"multi_match": {"query": query, "fields": ["title^2", "content"]}},
-                "from": (page - 1) * 10,
-                "size": 10
+                "from": (page - 1) * 20,
+                "size": 20
             }
         )
+        print(f"Got {len(res['hits']['hits'])} hits for page {page}")
         formatted_results = [
             {
                 "id": hit["_id"],
@@ -50,7 +52,7 @@ def search():
             }
             for hit in res["hits"]["hits"]
         ]
-        total_pages = max(1, (res["hits"]["total"]["value"] + 9) // 10)
+        total_pages = max(1, (res["hits"]["total"]["value"] + 19) // 20)
         return jsonify({
             "results": formatted_results,
             "total_pages": total_pages,
